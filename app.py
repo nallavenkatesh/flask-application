@@ -1,8 +1,8 @@
 
 import os
 
-from flask import Flask, render_template, request
-import new
+from flask import Flask, render_template, request,jsonify
+
 
 
 app = Flask(__name__)
@@ -18,11 +18,11 @@ def upload_file():
             f.save(os.path.join(app.config['UPLOADED_PATH'], f.filename))
     return render_template('index.html');
 
-@app.route('/' )
-def hello_world():
+@app.route('/', methods=['GET'])
+def hello():
     list = ['abc siddique', 'def-456', 'ghi-789', 'xyz siddique', '123 siddique']
-    print filter(lambda x: 'siddique' in x, list)
-    return hello_world;
+    filter(lambda x: 'siddique' in x, list)
+    return jsonify({'list':list })
 
 if __name__ == '__main__':
     app.run(debug=True)
